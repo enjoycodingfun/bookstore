@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssm.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.ssm.pojo.User" >
+    <id column="uid" property="uid" jdbcType="VARCHAR" />
+    <result column="uname" property="uname" jdbcType="VARCHAR" />
+    <result column="upwd" property="upwd" jdbcType="VARCHAR" />
+    <result column="realname" property="realname" jdbcType="VARCHAR" />
+    <result column="uemail" property="uemail" jdbcType="VARCHAR" />
+    <result column="utel" property="utel" jdbcType="VARCHAR" />
+    <result column="ubirthday" property="ubirthday" jdbcType="DATE" />
+    <result column="ugender" property="ugender" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="uintroduce" property="uintroduce" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    uid, uname, upwd, realname, uemail, utel, ubirthday, ugender, state, code, uintroduce
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ssm.pojo.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where uid = #{uid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user
+    where uid = #{uid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ssm.pojo.UserExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ssm.pojo.User" >
+    insert into user (uid, uname, upwd, 
+      realname, uemail, utel, 
+      ubirthday, ugender, state, 
+      code, uintroduce)
+    values (#{uid,jdbcType=VARCHAR}, #{uname,jdbcType=VARCHAR}, #{upwd,jdbcType=VARCHAR}, 
+      #{realname,jdbcType=VARCHAR}, #{uemail,jdbcType=VARCHAR}, #{utel,jdbcType=VARCHAR}, 
+      #{ubirthday,jdbcType=DATE}, #{ugender,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
+      #{code,jdbcType=VARCHAR}, #{uintroduce,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ssm.pojo.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="uname != null" >
+        uname,
+      </if>
+      <if test="upwd != null" >
+        upwd,
+      </if>
+      <if test="realname != null" >
+        realname,
+      </if>
+      <if test="uemail != null" >
+        uemail,
+      </if>
+      <if test="utel != null" >
+        utel,
+      </if>
+      <if test="ubirthday != null" >
+        ubirthday,
+      </if>
+      <if test="ugender != null" >
+        ugender,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="uintroduce != null" >
+        uintroduce,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="uname != null" >
+        #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="upwd != null" >
+        #{upwd,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="uemail != null" >
+        #{uemail,jdbcType=VARCHAR},
+      </if>
+      <if test="utel != null" >
+        #{utel,jdbcType=VARCHAR},
+      </if>
+      <if test="ubirthday != null" >
+        #{ubirthday,jdbcType=DATE},
+      </if>
+      <if test="ugender != null" >
+        #{ugender,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="uintroduce != null" >
+        #{uintroduce,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ssm.pojo.UserExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uname != null" >
+        uname = #{record.uname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upwd != null" >
+        upwd = #{record.upwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realname != null" >
+        realname = #{record.realname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uemail != null" >
+        uemail = #{record.uemail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.utel != null" >
+        utel = #{record.utel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ubirthday != null" >
+        ubirthday = #{record.ubirthday,jdbcType=DATE},
+      </if>
+      <if test="record.ugender != null" >
+        ugender = #{record.ugender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.code != null" >
+        code = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uintroduce != null" >
+        uintroduce = #{record.uintroduce,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set uid = #{record.uid,jdbcType=VARCHAR},
+      uname = #{record.uname,jdbcType=VARCHAR},
+      upwd = #{record.upwd,jdbcType=VARCHAR},
+      realname = #{record.realname,jdbcType=VARCHAR},
+      uemail = #{record.uemail,jdbcType=VARCHAR},
+      utel = #{record.utel,jdbcType=VARCHAR},
+      ubirthday = #{record.ubirthday,jdbcType=DATE},
+      ugender = #{record.ugender,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=INTEGER},
+      code = #{record.code,jdbcType=VARCHAR},
+      uintroduce = #{record.uintroduce,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssm.pojo.User" >
+    update user
+    <set >
+      <if test="uname != null" >
+        uname = #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="upwd != null" >
+        upwd = #{upwd,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null" >
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="uemail != null" >
+        uemail = #{uemail,jdbcType=VARCHAR},
+      </if>
+      <if test="utel != null" >
+        utel = #{utel,jdbcType=VARCHAR},
+      </if>
+      <if test="ubirthday != null" >
+        ubirthday = #{ubirthday,jdbcType=DATE},
+      </if>
+      <if test="ugender != null" >
+        ugender = #{ugender,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="uintroduce != null" >
+        uintroduce = #{uintroduce,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ssm.pojo.User" >
+    update user
+    set uname = #{uname,jdbcType=VARCHAR},
+      upwd = #{upwd,jdbcType=VARCHAR},
+      realname = #{realname,jdbcType=VARCHAR},
+      uemail = #{uemail,jdbcType=VARCHAR},
+      utel = #{utel,jdbcType=VARCHAR},
+      ubirthday = #{ubirthday,jdbcType=DATE},
+      ugender = #{ugender,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      code = #{code,jdbcType=VARCHAR},
+      uintroduce = #{uintroduce,jdbcType=VARCHAR}
+    where uid = #{uid,jdbcType=VARCHAR}
+  </update>
+</mapper>
